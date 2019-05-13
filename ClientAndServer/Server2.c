@@ -1,4 +1,3 @@
-
 // Server side C/C++ program to demonstrate Socket programming 
 #include <unistd.h> 
 #include <stdio.h> 
@@ -52,14 +51,15 @@ int main(int argc, char const *argv[])
         perror("accept"); 
         exit(EXIT_FAILURE); 
     } 
-	valread = read( new_socket , buffer, 1024); 
-    printf("%s\n",buffer ); 
+//TODO dynamically allocate memory from stdin
+	char hello[1024] = {0};
 
 	while (1) {
+	valread = read( new_socket , buffer, 1024); 
+    printf("%s\n",buffer ); 
     memset(buffer,'\0',sizeof(buffer));
-	char hello[1024] = {0};
-	scanf("%s",hello);
-
+    memset(hello,'\0',sizeof(hello));
+	fgets(hello,sizeof hello,stdin);
     send(new_socket , hello , strlen(hello) , 0 ); 
 	}
     printf("Hello message sent\n"); 
